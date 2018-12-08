@@ -20,9 +20,11 @@ One really clever thing that Docker Swarm has implemented, is it’s floating DN
 
 If you point towards any worker, or the manager itself with the IP:PORT (in this case 8080), it will delegate you to the nginx service that you’ve hosted.If you dislike this, you could even create your own load balancer within Docker Swarm, which would just be a drained worker (One which is not delegated work by the manager). 
 
-The smartest thing about Kubernetes out of the box is automatic scaling. You can make the master node listen on CPU / Memory Usage / Network traffic, and then automatically scale up your Containers. If you are using a public cloud you can even automatically make it “scale” up the hardware, and rent new PC’s. Also to have mirror setups available in different parts of the world, and dynamically do it in each region.
-This is also available on Docker swarm with extensions, and your own integrations but then you’re asking the question if you shouldn’t have gone with Kubernetes in the first place.
-Dockerswarm Really is easy!
+The smartest thing about Kubernetes out of the box is automatic scaling. You can make the master node listen on CPU / Memory Usage / Network traffic, and then automatically scale up your Containers. 
+
+If you are using a public cloud you can even automatically make it “scale” up the hardware, and rent new PC’s. Also to have mirror setups available in different parts of the world, and dynamically do it in each region. This is also available on Docker swarm with extensions, and your own integrations but then you’re asking the question if you shouldn’t have gone with Kubernetes in the first place.
+
+## Dockerswarm Really is easy!
 For fun we setup a Docker Swarm Environment using the official documentation from Docker. We setup 1 manager, and 2 workers at Vultr. Surprisingly, this only took 30 minutes or so to get running, and was fairly easy to set up, no errors or anything. Given this stage, you can now manually spawn clusters on each of your workers if you’d like to, although that’s not really a good scalable solution now, is it?
 
 With Kubernetes you’d have scaling forced onto you in your configs from the get go, and on cloud services it would already be setup. You would however have to do a much longer setup process, and for our first Kubernetes setup, it took 3 hours and we struggled a lot with load balancers, and setting the whole system up, with Docker version mismatches, Kubernetes not wanting slaves to join the cluster, and other miscellaneous issues.
