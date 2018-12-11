@@ -41,7 +41,6 @@ In the end it’s up to you to decide what solution you will be going with. You 
 One consideration that smaller companies might do, is the pricing on these cloud services.
 Comparing a 5 dollar instance hosted on Vultr, compared to the 7 dollar one on Google Cloud, or paying 15-20 dollars for a Kubernetes Manager, the prices are vastly different from you doing everything yourself. It comes down to however much time you want to spend on setting things up, and how valuable your time is. 
 
-//Potentially bare slette de 4 linier herunder? Synes det er fint at stoppe ved det ovenover
 You could consider the average labor of a Full Stack Developer, or a IT Technician, which would average between 20-30 dollars an hour. Setting Kubernetes could be a 1 day thing, it could be a 1 week thing. Paying 15-20 dollars to get everything set up for you, in comparison to spending developer time, which we know is expensive!
 
 
