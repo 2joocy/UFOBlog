@@ -1,5 +1,8 @@
-# Does the choice of Kubernetes & Docker Swarm matter?
+# Abstract
+
 With microservices becoming more and more popular; and specifically Docker becoming the standard virtualisation/containerisation platform, the need for a consistent orchestration platform arises. It’s hard to balance ease of use, with many features which comes from complicated different requirements people have, but some patterns are emerging which makes it easier. We'll try to compare Dockerswarm and Kubernetes in a non-technical broader sense, so you can decide for yourself which orchestration platform suits you the best, ultimately saving you both time and money.
+
+# Does the choice of Kubernetes & Docker Swarm matter?
 
 First of all it’s important to split up the Cloud & Hosting world into 2 categories. Private and Public cloud. The benefits of private clouds are becoming less obvious as time goes on, as you need to maintain servers yourself, hire staff and you also need the infrastructure for outages. Public cloud saves you a bit in these cases, since the provider usually has more data centers, has backup services available, and you don’t have to hire a team to maintain the hardware.
 
