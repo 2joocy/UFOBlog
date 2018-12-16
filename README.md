@@ -9,7 +9,7 @@ With microservices becoming more and more popular; and specifically Docker becom
 
 First of all it’s important to split up the Cloud & Hosting world into 2 categories. Private and Public cloud. The benefits of private clouds are becoming less obvious as time goes on, as you need to maintain servers yourself, hire staff and you also need the infrastructure for outages. Public cloud saves you a bit in these cases, since the provider usually has more data centers, has backup services available, and you don’t have to hire a team to maintain the hardware.
 
-We see Kubernetes used as a standard in Google Cloud, AWS (in North America), and services like [Digital Ocean](https://digitalocean.com/products/kubernetes/) starting a Kubernetes Cluster service in beta. So while Kubernetes might be harder to install, it is more versatile, and is setup to function in a full cloud environment, and contain every component from the containers/pods themselves, to load balancers, to other cloud services such as cloud builders.
+We see Kubernetes used as a standard in [Google Cloud](https://cloud.google.com/), [Amazon Web Services/AWS](https://aws.amazon.com/eks/) (in North America), and services like [Digital Ocean](https://digitalocean.com/products/kubernetes/) starting a Kubernetes Cluster service in beta. So while Kubernetes might be harder to install, it is more versatile, and is setup to function in a full cloud environment, and contain every component from the containers/pods themselves, to load balancers, to other cloud services such as cloud builders.
 
 Docker Swarm takes another approach, here the most important aspects are ease of use (it’s built into docker, you avoid version compatibility hell), and the general philosophy is you do the setup yourself, and you will need some external tools like load balancers.
 
@@ -22,7 +22,7 @@ In short, the way both of them work, is that you have manager nodes(or pc’s) w
 ![Docker Swarm](https://platform9.com/wp-content/uploads/2017/06/docker-architecture-1024x617.png)
 
 Running a bare metal Kubernetes setup(on your own), requires you to jump through quite a few hoops, since Kubernetes usually is built up around having these modules available, and being able to just “call” on them, you will most likely need to set up replacements yourself. 
-If you want a load balancer on your own Kubernetes setup, you would need a service like MetalLB, which provides load balancers for TCP traffic locally in the docker network, but you would need to route to those externally as well.
+If you want a load balancer on your own Kubernetes setup, you would need a service like [MetalLB](https://github.com/google/metallb), which provides load balancers for TCP traffic locally in the docker network, but you would need to route to those externally as well.
 
 ![Kubernetes](https://platform9.com/wp-content/uploads/2017/06/Nodes_Illustration-1024x743.png)
 
@@ -46,7 +46,7 @@ It really depends, on your use-case. We used Kubernetes for a smaller scale proj
 
 Question comes down to, should we have used Docker Swarm? They are very similar for our smaller use-case except for manual scaling. If you don’t feel like spending hours upon hours of research to figure out how to setup Kubernetes (with MetalLB). With 3rd party plugins you can replicate auto scaling for your private network, although if you’re a corporate, you should most likely go for Kubernetes as it comes with most larger cloud services, such as AWS or Google Cloud.
 
-In the end it’s up to you to decide what solution you will be going with. You can always hack your way through with plugins and using API’s from hosting centers such as Vultr (They have an API to spawn servers), and replicate it through that with the help of Orbiter if you choose Docker Swarm. Although things come packed and ready to use with larger cloud services, so that you can focus on development rather than struggle setting up servers. 
+In the end it’s up to you to decide what solution you will be going with. You can always hack your way through with plugins and using API’s from hosting centers such as Vultr (They have an API to spawn servers), and replicate it through that with the help of [Orbiter](https://github.com/gianarb/orbiter) if you choose Docker Swarm. Although things come packed and ready to use with larger cloud services, so that you can focus on development rather than struggle setting up servers. 
 
 One consideration that smaller companies might do, is the pricing on these cloud services.
 Comparing a 5 dollar instance hosted on Vultr, compared to the 7 dollar one on Google Cloud, or paying 15-20 dollars for a Kubernetes Manager, the prices are vastly different from you doing everything yourself. It comes down to however much time you want to spend on setting things up, and how valuable your time is. 
