@@ -53,6 +53,8 @@ Comparing a 5 dollar instance hosted on Vultr, compared to the 7 dollar one on G
 
 You could consider the average labor of a Full Stack Developer, or a IT Technician, which would average between 20-30 dollars an hour. Setting Kubernetes could be a 1 day thing, it could be a 1 week thing. Paying 15-20 dollars to get everything set up for you, in comparison to spending developer time, which we know is expensive!
 
+![Public Clouds](http://www.coherentchronicle.com/wp-content/uploads/2018/04/Public-Cloud-Market-702x370.jpg)
+
 ## On A Final Note
 Talking with people in the industry in person at meetups, the people we spoke to have transitioned away from Docker Swarm for a lot of reason. Usually hardcoded values, and limited setup makes people move to Kubernetes eventually, and the "tie in" to Docker itself, is actually bad since a transition to [Open Container Initiative](https://opencontainers.org/) slowly is taking place. And since Kubernetes isn't fundamentally tied to Docker, you could just swap out the container platform in the future.
 
