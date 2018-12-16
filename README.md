@@ -1,4 +1,5 @@
 # Does the choice of Kubernetes & Docker Swarm matter?
+#### 16 Dec 2018 |  Chris Rosendorf - William Pfaffe - Viktor Kim Christiansen
 
 # Abstract
 
@@ -8,7 +9,7 @@ With microservices becoming more and more popular; and specifically Docker becom
 
 First of all it’s important to split up the Cloud & Hosting world into 2 categories. Private and Public cloud. The benefits of private clouds are becoming less obvious as time goes on, as you need to maintain servers yourself, hire staff and you also need the infrastructure for outages. Public cloud saves you a bit in these cases, since the provider usually has more data centers, has backup services available, and you don’t have to hire a team to maintain the hardware.
 
-We see Kubernetes used as a standard in Google Cloud, AWS (in North America), and services like Digital Ocean starting a Kubernetes Cluster service in beta. So while Kubernetes might be harder to install, it is more versatile, and is setup to function in a full cloud environment, and contain every component from the containers/pods themselves, to load balancers, to other cloud services such as cloud builders.
+We see Kubernetes used as a standard in Google Cloud, AWS (in North America), and services like [Digital Ocean](https://digitalocean.com/products/kubernetes/) starting a Kubernetes Cluster service in beta. So while Kubernetes might be harder to install, it is more versatile, and is setup to function in a full cloud environment, and contain every component from the containers/pods themselves, to load balancers, to other cloud services such as cloud builders.
 
 Docker Swarm takes another approach, here the most important aspects are ease of use (it’s built into docker, you avoid version compatibility hell), and the general philosophy is you do the setup yourself, and you will need some external tools like load balancers.
 
@@ -18,8 +19,12 @@ So the conclusion is to use Kubernetes on public cloud services, and Docker Swar
 If you’ve never worked with Docker Swarm, or just quickly glanced over it, it’s a built-in cluster tool that comes with the default Docker package. Kubernetes is google's Orchestration version for the same thing, but made more as a “complete” solution.
 In short, the way both of them work, is that you have manager nodes(or pc’s) which control workers(or slaves) which runs your containers. In docker swarm the manager delegates the work to the workers, and is also delegated work to itself (This can be disabled). On Kubernetes you usually have your cloud provider, provide you with master’s so they aren’t even in the picture.
 
+![Docker Swarm](https://platform9.com/wp-content/uploads/2017/06/docker-architecture-1024x617.png)
+
 Running a bare metal Kubernetes setup(on your own), requires you to jump through quite a few hoops, since Kubernetes usually is built up around having these modules available, and being able to just “call” on them, you will most likely need to set up replacements yourself. 
 If you want a load balancer on your own Kubernetes setup, you would need a service like MetalLB, which provides load balancers for TCP traffic locally in the docker network, but you would need to route to those externally as well.
+
+![Kubernetes](https://platform9.com/wp-content/uploads/2017/06/Nodes_Illustration-1024x743.png)
 
 One really clever thing that Docker Swarm has implemented, is it’s floating DNS. Say you have one manager, and 7 workers. You deploy nginx on only 2 instances, and you bind them by port 8080. Now, you would have to look through each worker and guess which one it’s hosted in, right? Since Docker Swarm utilizes a floating DNS, you can actually manage to access the Nginx despite of a worker not having it hosted itself, smart right?
 
@@ -29,10 +34,10 @@ The smartest thing about Kubernetes out of the box is automatic scaling. You can
 
 If you are using a public cloud you can even automatically make it “scale” up the hardware, and rent new PC’s. Also to have mirror setups available in different parts of the world, and dynamically do it in each region. This is also available on Docker swarm with extensions, and your own integrations but then you’re asking the question if you shouldn’t have gone with Kubernetes in the first place.
 
-## Dockerswarm Really is easy!
+## Setup Time
 For fun we setup a Docker Swarm Environment using the official documentation from Docker. We setup 1 manager, and 2 workers at Vultr. Surprisingly, this only took 30 minutes or so to get running, and was fairly easy to set up, no errors or anything. Given this stage, you can now manually spawn clusters on each of your workers if you’d like to, although that’s not really a good scalable solution now, is it?
 
-With Kubernetes you’d have scaling forced onto you in your configs from the get go, and on cloud services it would already be setup. You would however have to do a much longer setup process, and for our first Kubernetes setup, it took 3 hours and we struggled a lot with load balancers, and setting the whole system up, with Docker version mismatches, Kubernetes not wanting slaves to join the cluster, and other miscellaneous issues.
+With Kubernetes you’d have scaling forced onto you in your configs from the get go, and on cloud services it would already be setup. You would however have to do a much longer setup process, and for our first Kubernetes setup, it took 3 hours [with this guide](https://medium.freecodecamp.org/learn-kubernetes-in-under-3-hours-a-detailed-guide-to-orchestrating-containers-114ff420e882) and we struggled a lot with load balancers, and setting the whole system up. Also just dealing with Docker version mismatches and linux package setup. Kubernetes also didn't want slaves to join the cluster, and other miscellaneous issues.
 
 On Google Cloud, everything worked like a charm, and it took no time to set up, you do however have to pay a chunk of money for the luxury. But then the question is, how many developer hours do you have to waste on doing your own setup, until just paying Google/Amazon, and it being worth it? And on top of that you also get more services, and guarantees if server outages happens.
 
@@ -48,20 +53,21 @@ Comparing a 5 dollar instance hosted on Vultr, compared to the 7 dollar one on G
 
 You could consider the average labor of a Full Stack Developer, or a IT Technician, which would average between 20-30 dollars an hour. Setting Kubernetes could be a 1 day thing, it could be a 1 week thing. Paying 15-20 dollars to get everything set up for you, in comparison to spending developer time, which we know is expensive!
 
+## On A Final Note
+Talking with people in the industry in person at meetups, the people we spoke to have transitioned away from Docker Swarm for a lot of reason. Usually hardcoded values, and limited setup makes people move to Kubernetes eventually, and the "tie in" to Docker itself, is actually bad since a transition to [Open Container Initiative](https://opencontainers.org/) slowly is taking place. And since Kubernetes isn't fundamentally tied to Docker, you could just swap out the container platform in the future.
+
+They all recommended to just pay out for the public clouds, even for hobby projects since it isn't "that" expensive. We would however say Dockerswarm is more than enough for a small "fun" student project.
 
 ## In Conclusion
-Does it really matter? Well if you were cynical and pointed to Betteridge's law of headlines you could guess the answer would be no. But the truth is, for our project Docker Swarm would have saved us time, but learning Kubernetes was a nice experience and made picking up Docker Swarm very easy. Does it matter? Kind of...
+Does it really matter? Well if you were cynical and pointed to Betteridge's law of headlines you could guess the answer would be no. But the truth is, for our project Docker Swarm would have saved us time, but learning Kubernetes was a nice experience and made picking up Docker Swarm very easy. Loads of people are moving away from Docker Swarm, and the fact that it's tied into Docker itself, may be it's own death.
 
-TLDR: If you are doing smaller projects on a private cloud use Dockerswarm, if you plan on doing something bigger, use the money on a good public cloud service and Kubernetes.
+Does it matter? Kind of...
 
-## Made By(08-12-2018):
- - Chris Rosendorf
- - Viktor Kim Christiansen
- - William Pfaffe
+TLDR: If you are doing smaller projects on a private cloud use Dockerswarm. Unless your plan is to learn to use something you might want in the future, or if you plan on doing something bigger, use the extra money on a good public cloud service and Kubernetes.
 
 #### Sources
  -  https://docs.docker.com/get-started/
- -  https://platform9.com/blog/kubernetes-docker-swarm-compared/
+ -  https://platform9.com/blog/kubernetes-docker-swarm-compared/ (Images and technical info)
  -  https://docs.docker.com/engine/swarm/swarm-tutorial/
  -  https://medium.freecodecamp.org/learn-kubernetes-in-under-3-hours-a-detailed-guide-to-orchestrating-containers-114ff420e882
  -  https://kubernetes.io/docs/home/?path=users&persona=app-developer&level=foundational
